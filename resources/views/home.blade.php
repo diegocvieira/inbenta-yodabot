@@ -5,23 +5,39 @@
         <meta charset="UTF-8">
 
         <title>YodaBot</title>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
     </head>
     <body>
         <main id="app">
-            <div id="chat">
-                <ul id="chat-messages">
-                    <li v-for="message in messages">
-                        <b v-if="message.bot">YodaBot:</b> <b v-else>Me:</b>
-                        <p v-html="message.body"></p>
-                    </li>
-                </ul>
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-7">
+                        <div id="chat">
+                            <ul id="chat-messages">
+                                <li v-for="message in messages">
+                                    <b v-if="message.bot">YodaBot:</b> <b v-else>Me:</b>
+                                    <p v-html="message.body"></p>
+                                </li>
+                            </ul>
 
-                <div v-show="writing">YodaBot is writing...</div>
+                            <div v-show="writing">YodaBot is writing...</div>
 
-                <form action="{{ route('messages.send') }}" method="GET" @submit="submitForm" id="char-form">
-                    <input type="text" name="message" v-model="message" required />
-                    <button type="submit">Send!</button>
-                </form>
+                            <form action="{{ route('messages.send') }}" method="POST" @submit="submitForm" id="chat-form">
+                                <div class="field is-grouped" style="width: 100%;">
+                                    <div class="control is-expanded">
+                                        <input type="text" name="message" v-model="message" class="input" placeholder="type your message..." required />
+                                    </div>
+
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">Send!</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 

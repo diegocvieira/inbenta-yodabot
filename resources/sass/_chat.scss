@@ -1,0 +1,28 @@
+#chat {
+    margin: 30px auto;
+
+    #chat-messages {
+        max-height: 400px;
+        overflow: auto;
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            list-style: inside;
+
+            p {
+                display: inline;
+
+                li {
+                    list-style-type: circle;
+                }
+            }
+        }
+    }
+
+    #chat-form {
+        display: flex;
+        height: 40px;
+        padding: 0 10px;
+    }
+}

@@ -1,1 +1,23 @@
-
+#chat {
+  margin: 30px auto;
+}
+#chat #chat-messages {
+  max-height: 400px;
+  overflow: auto;
+}
+#chat #chat-messages li {
+  margin-bottom: 10px;
+  padding-left: 10px;
+  list-style: inside;
+}
+#chat #chat-messages li p {
+  display: inline;
+}
+#chat #chat-messages li p li {
+  list-style-type: circle;
+}
+#chat #chat-form {
+  display: flex;
+  height: 40px;
+  padding: 0 10px;
+}
