@@ -50,9 +50,10 @@ class AuthenticationService
             'headers' => $headers,
             'body' => json_encode($body)
         ]);
-
         $response = json_decode($response->getBody());
 
-        Cache::put('access_token', $response->accessToken, $response->expires_in);
+        return Cache::remember('access_token', $response->expires_in, function () use ($response) {
+            return $response->accessToken;
+        });
     }
 }
