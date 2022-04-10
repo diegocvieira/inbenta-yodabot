@@ -37,6 +37,32 @@ new Vue({
         }
     },
     methods: {
+        formatStarWarsResponse(response) {
+            data = `I haven't found any results, but here is a list os some Star Wars characters:`
+            data += '<ul>'
+
+            response.forEach(function(value) {
+                data += '<li>' + value + '</li>'
+            })
+
+            data += '</ul>'
+
+            return data;
+        },
+        getConversationHistory() {
+            const conversationHistory = localStorage.getItem('conversation_history')
+            return conversationHistory ? JSON.parse(conversationHistory) : []
+        },
+        setConversationHistory() {
+            localStorage.setItem('conversation_history', JSON.stringify(this.messages))
+        },
+        clearConversationHistory() {
+            localStorage.removeItem('conversation_history');
+        },
+        scrollToChatBottom() {
+            const chatMessagesDiv = document.getElementById('chat-messages');
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        },
         submitForm: function (event) {
             this.messages.push({body: this.message, bot: false})
             this.writing = true
@@ -49,7 +75,7 @@ new Vue({
                     console.log(response.data.data)
 
                     if (Array.isArray(response.data.data)) {
-                        data = formatStarWarsResponse(response.data.data)
+                        data = this.formatStarWarsResponse(response.data.data)
                     } else {
                         data = response.data.data
                     }
@@ -58,31 +84,34 @@ new Vue({
                 })
                 .catch(error => {
                     if (error.response && error.response.status === 400) {
+                        setTimeout(() => {
+                            this.clearConversationHistory()
+                        }, 200);
+
                         console.log(error.response.data.error)
                     }
 
-                    // console.log(error)
+                    console.log(error)
                 })
                 .finally(() => {
                     this.writing = false
+
+                    this.scrollToChatBottom()
+                    this.setConversationHistory()
                 })
 
             this.message = ''
 
             event.preventDefault()
         }
+    },
+    created: function () {
+        this.messages = this.getConversationHistory()
+
+        setTimeout(() => {
+            this.scrollToChatBottom()
+        }, 200);
+
+        // localStorage.removeItem('conversation_history');
     }
 })
-
-function formatStarWarsResponse(response) {
-    data = `I haven't found any results, but here is a list os some Star Wars characters:`
-    data += '<ul>'
-
-    response.forEach(function(value) {
-        data += '<li>' + value + '</li>'
-    })
-
-    data += '</ul>'
-
-    return data;
-}
