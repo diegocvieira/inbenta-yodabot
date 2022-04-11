@@ -33,7 +33,8 @@ new Vue({
         return {
             messages: [],
             message: '',
-            writing: false
+            writing: false,
+            error: false
         }
     },
     methods: {
@@ -74,6 +75,7 @@ new Vue({
         submitForm: function (event) {
             this.messages.push({body: this.message, bot: false})
             this.writing = true
+            this.error = false
 
             axios
                 .post('/api/messages/send', {
@@ -104,10 +106,10 @@ new Vue({
                             this.clearConversationHistory()
                         }, 200);
 
-                        console.log(error.response.data.error)
+                        this.error = error.response.data.error
+                    } else {
+                        this.error = 'An unexpected error has occurred. Please, try again later.'
                     }
-
-                    console.log(error)
                 })
                 .finally(() => {
                     this.writing = false

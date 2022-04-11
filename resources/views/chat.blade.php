@@ -22,7 +22,8 @@
                                 </li>
                             </ul>
 
-                            <div v-show="writing">YodaBot is writing...</div>
+                            <div v-show="writing" class="writing">YodaBot is writing...</div>
+                            <div v-show="error" class="error">@{{ error }}</div>
 
                             <form action="{{ route('api.messages.send') }}" method="POST" @submit="submitForm" id="chat-form">
                                 <div class="field is-grouped" style="width: 100%;">

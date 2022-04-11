@@ -1,5 +1,6 @@
 #chat {
     margin: 30px auto;
+    padding: 0 10px;
 
     #chat-messages {
         max-height: 400px;
@@ -20,9 +21,13 @@
         }
     }
 
+    .writing, .error {
+        padding: 10px 0;
+        font-style: italic;
+    }
+
     #chat-form {
         display: flex;
         height: 40px;
-        padding: 0 10px;
     }
 }
