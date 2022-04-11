@@ -24,7 +24,7 @@
 
                             <div v-show="writing">YodaBot is writing...</div>
 
-                            <form action="{{ route('messages.send') }}" method="POST" @submit="submitForm" id="chat-form">
+                            <form action="{{ route('api.messages.send') }}" method="POST" @submit="submitForm" id="chat-form">
                                 <div class="field is-grouped" style="width: 100%;">
                                     <div class="control is-expanded">
                                         <input type="text" name="message" v-model="message" class="input" placeholder="type your message..." required />

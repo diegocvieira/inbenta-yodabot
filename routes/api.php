@@ -15,8 +15,11 @@ use App\Http\Controllers\Api\ChatbotController;
 |
 */
 
-Route::post('messages/send', [ChatbotController::class, 'sendMessage'])->name('messages.send');
-Route::get('messages/characters', [ChatbotController::class, 'getCharacters']);
+Route::group(['prefix' => 'messages', 'as' => 'api.messages.'], function () {
+    Route::post('send', [ChatbotController::class, 'sendMessage'])->name('send');
+    Route::get('characters', [ChatbotController::class, 'getCharacters'])->name('characters');
+    Route::get('films', [ChatbotController::class, 'getFilms'])->name('films');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
