@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\ChatbotController;
 */
 
 Route::post('messages/send', [ChatbotController::class, 'sendMessage'])->name('messages.send');
+Route::get('messages/characters', [ChatbotController::class, 'getCharacters']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

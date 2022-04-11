@@ -37,8 +37,8 @@ new Vue({
         }
     },
     methods: {
-        formatStarWarsResponse(response) {
-            data = `I haven't found any results, but here is a list os some Star Wars characters:`
+        formatStarWarsResponse(response, type) {
+            data = type == 'films' ? `The <b>force</b> is in this movies:` : `I haven't found any results, but here is a list os some Star Wars characters:`
             data += '<ul>'
 
             response.forEach(function(value) {
@@ -63,6 +63,14 @@ new Vue({
             const chatMessagesDiv = document.getElementById('chat-messages');
             chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
         },
+        getCharacters() {
+            return axios
+                .get('/api/messages/characters')
+                .then(response => {
+                    const data = this.formatStarWarsResponse(response.data.data.message, 'characters')
+                    this.messages.push({body: data, bot: true})
+                })
+        },
         submitForm: function (event) {
             this.messages.push({body: this.message, bot: false})
             this.writing = true
@@ -72,15 +80,23 @@ new Vue({
                     message: this.message
                 })
                 .then(response => {
-                    console.log(response.data.data)
-
-                    if (Array.isArray(response.data.data)) {
-                        data = this.formatStarWarsResponse(response.data.data)
+                    if (response.data.data.flags && response.data.data.flags.includes('no-results'))  {
+                        localStorage.setItem('no_results', localStorage.getItem('no_results') ? parseInt(localStorage.getItem('no_results')) + 1 : 1)
                     } else {
-                        data = response.data.data
+                        localStorage.removeItem('no_results');
                     }
 
-                    this.messages.push({body: data, bot: true})
+                    if (localStorage.getItem('no_results') && parseInt(localStorage.getItem('no_results')) >= 2) {
+                        return this.getCharacters()
+                    } else {
+                        if (Array.isArray(response.data.data.message)) {
+                            data = this.formatStarWarsResponse(response.data.data.message, 'films')
+                        } else {
+                            data = response.data.data.message
+                        }
+
+                        this.messages.push({body: data, bot: true})
+                    }
                 })
                 .catch(error => {
                     if (error.response && error.response.status === 400) {
@@ -111,7 +127,5 @@ new Vue({
         setTimeout(() => {
             this.scrollToChatBottom()
         }, 200);
-
-        // localStorage.removeItem('conversation_history');
     }
 })

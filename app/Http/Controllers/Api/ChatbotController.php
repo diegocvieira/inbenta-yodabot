@@ -41,20 +41,13 @@ class ChatbotController extends Controller
             ]);
         }
 
-        $response = json_decode($response->getBody());
-
-        if (in_array('no-results', $response->answers[0]->flags)) {
-            Cache::increment('no_results');
-        } else {
-            Cache::forget('no_results');
-        }
-
-        if (Cache::has('no_results') && Cache::get('no_results') >= 2) {
-            return $this->getCharacters();
-        }
+        $response = json_decode($response->getBody())->answers[0];
 
         return response()->json([
-            'data' => $response->answers[0]->message
+            'data' => [
+                'message' => $response->message,
+                'flags' => $response->flags
+            ]
         ], 200);
     }
 
@@ -71,7 +64,9 @@ class ChatbotController extends Controller
         }
 
         return response()->json([
-            'data' => $response
+            'data' => [
+                'message' => $response
+            ]
         ], 200);
     }
 
@@ -88,7 +83,9 @@ class ChatbotController extends Controller
         }
 
         return response()->json([
-            'data' => $response
+            'data' => [
+                'message' => $response
+            ]
         ], 200);
     }
 }
