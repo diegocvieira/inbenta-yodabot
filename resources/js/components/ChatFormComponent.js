@@ -40,13 +40,9 @@ export default {
                     message: this.message
                 })
                 .then(response => {
-                    if (response.data.flags && response.data.flags.includes('no-results'))  {
-                        localStorage.setItem('no_results', localStorage.getItem('no_results') ? parseInt(localStorage.getItem('no_results')) + 1 : 1)
-                    } else {
-                        localStorage.removeItem('no_results');
-                    }
+                    this.storageNoResultsCount(response.data)
 
-                    if (localStorage.getItem('no_results') && parseInt(localStorage.getItem('no_results')) >= 2) {
+                    if (this.noResultsCountIsReached()) {
                         return this.getCharacters()
                     } else {
                         this.$emit('response', response.data)
@@ -76,5 +72,21 @@ export default {
                     this.$emit('response', response.data)
                 })
         },
+        noResultsCountIsReached() {
+            const maxAttempts = 2
+
+            if (localStorage.getItem('no_results') && parseInt(localStorage.getItem('no_results')) >= maxAttempts) {
+                return true
+            } else {
+                return false
+            }
+        },
+        storageNoResultsCount(response) {
+            if (response.data.flags && response.data.flags.includes('no-results'))  {
+                localStorage.setItem('no_results', localStorage.getItem('no_results') ? parseInt(localStorage.getItem('no_results')) + 1 : 1)
+            } else {
+                localStorage.removeItem('no_results');
+            }
+        }
     }
 }

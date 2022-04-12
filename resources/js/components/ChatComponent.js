@@ -1,4 +1,4 @@
-import ChatFormComponent from './ChatFormComponent.vue'
+import ChatFormComponent from './ChatFormComponent'
 
 export default {
     template: `
