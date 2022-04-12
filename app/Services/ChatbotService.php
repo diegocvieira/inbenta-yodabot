@@ -8,7 +8,7 @@ use App\Services\AuthenticationService;
 class ChatbotService
 {
     protected $apiKey = 'nyUl7wzXoKtgoHnd2fB0uRrAv0dDyLC+b4Y6xngpJDY=';
-    protected $baseEndpoint = 'https://api-gce3.inbenta.io/prod/chatbot/v1';
+    protected $baseUrl = 'https://api-gce3.inbenta.io/prod/chatbot/v1';
 
     public function getAnswer($message)
     {
@@ -25,7 +25,7 @@ class ChatbotService
             'message' => $message
         ];
 
-        $response = $guzzleClient->request('POST', $this->baseEndpoint . '/conversation/message', [
+        $response = $guzzleClient->request('POST', $this->baseUrl . '/conversation/message', [
             'headers' => $headers,
             'body' => json_encode($body)
         ]);

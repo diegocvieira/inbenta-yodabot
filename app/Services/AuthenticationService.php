@@ -9,8 +9,8 @@ class AuthenticationService
 {
     protected $apiKey = 'nyUl7wzXoKtgoHnd2fB0uRrAv0dDyLC+b4Y6xngpJDY=';
     protected $secret = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0IjoieW9kYV9jaGF0Ym90X2VuIn0.anf_eerFhoNq6J8b36_qbD4VqngX79-yyBKWih_eA1-HyaMe2skiJXkRNpyWxpjmpySYWzPGncwvlwz5ZRE7eg';
-    protected $conversationEndpoint = 'https://api-gce3.inbenta.io/prod/chatbot/v1/conversation';
-    protected $authEndpoint = 'https://api.inbenta.io/v1/auth';
+    protected $conversationUrl = 'https://api-gce3.inbenta.io/prod/chatbot/v1/conversation';
+    protected $authUrl = 'https://api.inbenta.io/v1/auth';
 
     public function getConversationToken()
     {
@@ -22,7 +22,7 @@ class AuthenticationService
                 'Authorization' => 'Bearer ' . $this->getAuthToken()
             ];
 
-            $response = $guzzleClient->request('POST', $this->conversationEndpoint, [
+            $response = $guzzleClient->request('POST', $this->conversationUrl, [
                 'headers' => $headers
             ]);
 
@@ -46,7 +46,7 @@ class AuthenticationService
             'secret' => $this->secret
         ];
 
-        $response = $guzzleClient->request('POST', $this->authEndpoint, [
+        $response = $guzzleClient->request('POST', $this->authUrl, [
             'headers' => $headers,
             'body' => json_encode($body)
         ]);

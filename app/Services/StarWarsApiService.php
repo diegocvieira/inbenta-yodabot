@@ -6,7 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 
 class StarWarsApiService
 {
-    protected $swapiEndpoint = 'https://inbenta-graphql-swapi-prod.herokuapp.com/api';
+    protected $swapiUrl = 'https://inbenta-graphql-swapi-prod.herokuapp.com/api';
 
     public function getFilms()
     {
@@ -17,7 +17,7 @@ class StarWarsApiService
         ];
         $body = '{"query":"{allFilms{films{title}}}"}';
 
-        $response = $guzzleClient->request('POST', $this->swapiEndpoint, [
+        $response = $guzzleClient->request('POST', $this->swapiUrl, [
             'headers' => $headers,
             'body' => $body
         ]);
@@ -37,7 +37,7 @@ class StarWarsApiService
         ];
         $body = '{"query":"{allPeople{people{name}}}"}';
 
-        $response = $guzzleClient->request('POST', $this->swapiEndpoint, [
+        $response = $guzzleClient->request('POST', $this->swapiUrl, [
             'headers' => $headers,
             'body' => $body
         ]);
