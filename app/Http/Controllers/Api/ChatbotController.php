@@ -12,6 +12,10 @@ class ChatbotController extends Controller
 {
     public function sendMessage(Request $request)
     {
+        $request->validate([
+            'message' => 'required'
+        ]);
+
         $message = $request->message;
 
         if (in_array('force', explode(' ', $message))) {
