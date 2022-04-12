@@ -14,29 +14,7 @@
             <div class="container">
                 <div class="columns is-centered">
                     <div class="column is-7">
-                        <div id="chat">
-                            <ul id="chat-messages">
-                                <li v-for="message in messages">
-                                    <b v-if="message.bot">YodaBot:</b> <b v-else>Me:</b>
-                                    <p v-html="message.body"></p>
-                                </li>
-                            </ul>
-
-                            <div v-show="writing" class="writing">YodaBot is writing...</div>
-                            <div v-show="error" class="error">@{{ error }}</div>
-
-                            <form action="{{ route('api.messages.send') }}" method="POST" @submit="submitForm" id="chat-form">
-                                <div class="field is-grouped" style="width: 100%;">
-                                    <div class="control is-expanded">
-                                        <input type="text" name="message" v-model="message" class="input" placeholder="type your message..." required />
-                                    </div>
-
-                                    <div class="control">
-                                        <button type="submit" class="button is-primary">Send!</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <chat-component></chat-component>
                     </div>
                 </div>
             </div>

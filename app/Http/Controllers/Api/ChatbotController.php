@@ -65,7 +65,8 @@ class ChatbotController extends Controller
 
         return response()->json([
             'data' => [
-                'message' => $response
+                'message' => $response,
+                'type' => 'films'
             ]
         ], 200);
     }
@@ -84,7 +85,8 @@ class ChatbotController extends Controller
 
         return response()->json([
             'data' => [
-                'message' => $response
+                'message' => $response,
+                'type' => 'characters'
             ]
         ], 200);
     }
