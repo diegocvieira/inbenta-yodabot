@@ -10,7 +10,7 @@ class BotTest extends TestCase
 {
     public function test_bot_answer()
     {
-        $response = $this->call('POST', route('api.messages.send'), [
+        $response = $this->call('POST', route('api.conversation.message'), [
             'message' => 'Hello',
         ]);
 
@@ -19,7 +19,7 @@ class BotTest extends TestCase
 
     public function test_bot_answer_with_force_word()
     {
-        $response = $this->call('POST', route('api.messages.send'), [
+        $response = $this->call('POST', route('api.conversation.message'), [
             'message' => 'The force is with you?',
         ]);
 

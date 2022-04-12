@@ -36,7 +36,7 @@ export default {
             this.$emit('message', this.message)
 
             axios
-                .post('/api/messages/send', {
+                .post('/api/conversation/message', {
                     message: this.message
                 })
                 .then(response => {

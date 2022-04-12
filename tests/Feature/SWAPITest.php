@@ -10,7 +10,7 @@ class SWAPITest extends TestCase
 {
     public function test_characters_response_is_array()
     {
-        $response = $this->call('GET', route('api.messages.characters'));
+        $response = $this->call('GET', route('api.conversation.characters'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertIsArray($response->decodeResponseJson()['data']['message']);
@@ -18,7 +18,7 @@ class SWAPITest extends TestCase
 
     public function test_films_response_is_array()
     {
-        $response = $this->call('GET', route('api.messages.films'));
+        $response = $this->call('GET', route('api.conversation.films'));
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertIsArray($response->decodeResponseJson()['data']['message']);

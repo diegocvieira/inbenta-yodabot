@@ -15,8 +15,8 @@ use App\Http\Controllers\Api\ChatbotController;
 |
 */
 
-Route::group(['prefix' => 'messages', 'as' => 'api.messages.'], function () {
-    Route::post('send', [ChatbotController::class, 'sendMessage'])->name('send');
+Route::group(['prefix' => 'conversation', 'as' => 'api.conversation.'], function () {
+    Route::post('message', [ChatbotController::class, 'sendMessage'])->name('message');
     Route::get('characters', [ChatbotController::class, 'getCharacters'])->name('characters');
     Route::get('films', [ChatbotController::class, 'getFilms'])->name('films');
 });
