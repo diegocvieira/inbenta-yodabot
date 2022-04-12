@@ -67,7 +67,7 @@ export default {
         },
         getCharacters() {
             return axios
-                .get('/api/messages/characters')
+                .get('/api/conversation/characters')
                 .then(response => {
                     this.$emit('response', response.data)
                 })
