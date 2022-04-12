@@ -20,7 +20,3 @@ Route::group(['prefix' => 'conversation', 'as' => 'api.conversation.'], function
     Route::get('characters', [ChatbotController::class, 'getCharacters'])->name('characters');
     Route::get('films', [ChatbotController::class, 'getFilms'])->name('films');
 });
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
